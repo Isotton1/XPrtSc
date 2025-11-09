@@ -12,18 +12,16 @@
 #include <assert.h>
 #include <errno.h>
 #include <string.h>
-#include <fcntl.h>
 #include <unistd.h>
 
 #include <X11/Xlib.h>
 
 const char* const usage =
-    "Usage: xprtsc [OPTION]\n"
-	"Capture a screenshot and writes it in binary ppm format\n"
-    "to stdout by default if no output file is given.\n"
+    "Usage: xprtsc [-v|-h]\n"
+	"Capture a screenshot and writes it in binary ppm format to stdout.\n"
     "Future manpage will give more details. For now, read the source code.\n";
 const char* const version =
-    "xprtsc v0.1.0\n"
+    "xprtsc v0.1.1\n"
     "License: GPLv3+ (https://gnu.org/licenses/gpl.html)\n";
 
 int full_write(int fd, uint8_t* s, size_t len) {
@@ -64,8 +62,6 @@ void write_ppm(uint8_t* data, int width, int height, bool msb_first, int fd) {
 }
 
 int main(int argc, char* argv[]) {
-     int fd = STDOUT_FILENO;
-	
     if (argc == 1)
         goto ARG_END;
     
@@ -87,25 +83,13 @@ int main(int argc, char* argv[]) {
         fprintf(stdout, version);
         return 0;
     }
-    if (!(strcmp(argv[1], "-o") && strcmp(argv[1], "--output"))) {
-        if (argc == 2) {
-            fprintf(stderr, "no output file\n");
-            return 1;
-        }
-        const char* output_filename = (const char *) argv[2];
-        int flags = O_WRONLY | O_CREAT | O_TRUNC;
-	    fd = open(output_filename, flags, 0600);
-		if (fd < 0) {
-		    fprintf(stderr, "couldn't open output file: %s\n", strerror(errno));
-            return 1;
-		}
-    }
-    else {
-        fprintf(stderr, "invalid flag: %s\n", argv[1]);
-        return 1;
-    }
+
+    fprintf(stderr, "invalid flag: %s\n", argv[1]);
+    return 1;
 
 ARG_END:
+    int fd = STDOUT_FILENO;
+    
     Display* dpy = XOpenDisplay(NULL);
 	if (dpy == NULL) {
 		fprintf(stderr, "failed to open X Display\n");
