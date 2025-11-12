@@ -87,7 +87,8 @@ int main(int argc, char* argv[]) {
     fprintf(stderr, "invalid flag: %s\n", argv[1]);
     return 1;
 
-ARG_END:
+ARG_END: ;
+
     int fd = STDOUT_FILENO;
     
     Display* dpy = XOpenDisplay(NULL);
