@@ -6,7 +6,25 @@ your favourite image converter (e.g. ffmpeg).
 
 Inspired/Modified from sxot (https://codeberg.org/NRK/sxot).
 
-## Usage:
+## Installation
+### Linux
+#### With Make
+```sh
+$ make
+$ make clean install
+```
+
+#### Without Make
+```sh
+$ cc -o nob nob.c
+$ ./nob
+$ ./nob clean install
+```
+
+### Other OSes
+Good luck!
+
+## Usage
 ### Printing to STDOUT
 ```sh
 $ xprtsc
