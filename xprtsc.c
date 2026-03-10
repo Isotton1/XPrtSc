@@ -1,7 +1,9 @@
 /**
  *  @author Enzo R. Isotton (eri@vtluug.org)
- *  
+ *
  *  Modified from sxot.c (https://codeberg.org/NRK/sxot)
+ *
+ *  Licensed under GPLv3+ (https://gnu.org/licenses/gpl.html)
  */
 
 #include <stdio.h>
@@ -20,9 +22,6 @@ const char* const usage =
     "Usage: xprtsc [-v|-h]\n"
 	"Capture a screenshot and writes it in binary ppm format to stdout.\n"
     "Future manpage will give more details. For now, read the source code.\n";
-const char* const version =
-    "xprtsc v0.1.1\n"
-    "License: GPLv3+ (https://gnu.org/licenses/gpl.html)\n";
 
 int full_write(int fd, uint8_t* s, size_t len) {
 	while (len > 0) {
@@ -77,10 +76,6 @@ int main(int argc, char* argv[]) {
             
     if (!(strcmp(argv[1], "-h") && strcmp(argv[1], "--help"))) {
         fprintf(stdout, usage);
-        return 0;
-    }
-    if (!(strcmp(argv[1], "-v") && strcmp(argv[1], "--version"))) {
-        fprintf(stdout, version);
         return 0;
     }
 

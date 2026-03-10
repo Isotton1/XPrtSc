@@ -22,10 +22,11 @@ clean:
 
 dist: clean
 	mkdir -p xprtsc-$(VERSION)
-	cp -R LICENSE Makefile README.md config.mk $(SRC) xprtsc-$(VERSION)
+	cp -R LICENSE Makefile nob.c nob.h README.md config.mk nob_config.h \
+		$(SRC) xprtsc-$(VERSION)
 	tar -cf xprtsc-$(VERSION).tar xprtsc-$(VERSION)
 	gzip xprtsc-$(VERSION).tar
-	rm -r xprtsc-$(VERSION)
+	rm -rf xprtsc-$(VERSION)
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -33,6 +34,6 @@ install: all
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/xprtsc
 
 uninstall:
-	rm $(DESTDIR)$(PREFIX)/bin/xprtsc
+	rm -f $(DESTDIR)$(PREFIX)/bin/xprtsc
 
 .PHONY: all clean dist install uninstall
